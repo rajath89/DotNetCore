@@ -16,10 +16,9 @@ Commands
 */
 
 
-using MyLibrary;
+using MyLib;
 string str= "hello";
 var dt = new Dictionary<string,string>();
 Console.WriteLine("Hello, World!");
-Class1 cls = new Class1();
-cls.ID = 1;
+
 
