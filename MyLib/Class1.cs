@@ -1,5 +1,11 @@
 ﻿namespace MyLib;
-public class Class1
+public class Customer
 {
-
+        public string customerName;
+        public string customerAddress;
+        public string customerContact;       
+        public void MyProfile()
+        {
+            Console.WriteLine("Print Customer Details");            
+        }
 }
