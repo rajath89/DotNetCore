@@ -18,6 +18,7 @@ Commands
 
 using System.Configuration;
 using MyLib;
+using MyLib.Employee;
 
 
 
@@ -33,9 +34,43 @@ custObj3 = custObj1;
 custObj1 = null;
 custObj3.customerAddress="Address";
 
+custObj3.customerAddress = "outside";
+
+NumberOfSeatsAndDoors x = new NumberOfSeatsAndDoors(5, 4);
+        Car testCar1 = new Car("Audi", 20000, x);
+        Car testCar2 = testCar1;
+
+testCar2.manufacturer="skoda";
+
+Console.WriteLine("end");
+
 //ConfigTest();
 //testMethod();
 MethodOverridingTest();
+DynamicMethodDispatchTest();
+
+void DynamicMethodDispatchTest()
+{
+            Employee employee = new Employee();
+            employee.BasicSalary = 10000;
+            employee.EmployeeId = 1001;
+            FinanceManagementDesk.PrintEmployeeDetails(employee);
+            
+            
+            SystemsEngineer systemEngineer = new SystemsEngineer();
+            systemEngineer.EmployeeId = 1002;
+            systemEngineer.Incentive = 1000;
+            systemEngineer.BasicSalary = 10000;
+            // Observe the following line invokes the method which invokes GetTotalSalary() of the class systemEngineer
+            FinanceManagementDesk.PrintEmployeeDetails(systemEngineer);
+            
+            TechnologyAnalyst technicalAnalyst = new TechnologyAnalyst();
+            technicalAnalyst.EmployeeId = 1003;
+            technicalAnalyst.companyBonus = 2050;
+            technicalAnalyst.BasicSalary = 50000;
+            // Observe the following line invokes the method which invokes GetTotalSalary() of the class technicalAnalyst 
+            FinanceManagementDesk.PrintEmployeeDetails(technicalAnalyst);
+}
 
 void MethodOverridingTest()
 {
@@ -53,17 +88,16 @@ void MethodOverridingTest()
         parentOne.Display();
         child.Display();
         parentTwo.Display(); //In this case, the child class method is called even though the reference is of parent class.Here, we have used the override keyword, therefore the child class's Display() method is invoked whenever there is an object of child class
+
+
+        // Dynamic method dispatch
+        Purchase purchase = new Purchase();
+Console.WriteLine("Discount for privileged customer : " 
+                + purchase.CalculateBillAmount(privilegedCustomer, 1000));
+Console.WriteLine("Discount for regular customer : " 
+                + purchase.CalculateBillAmount(regularCustomer, 1000));
+
 }
-
-custObj3.customerAddress = "outside";
-
-NumberOfSeatsAndDoors x = new NumberOfSeatsAndDoors(5, 4);
-        Car testCar1 = new Car("Audi", 20000, x);
-        Car testCar2 = testCar1;
-
-testCar2.manufacturer="skoda";
-
-Console.WriteLine("end");
 
 void ConfigTest(){
           //string sectionName = "consoleSection";
@@ -145,6 +179,10 @@ custObj3 = custObj1;
 custObj3.customerAddress="Address";
 
 }
+
+
+
+
 
 
 
