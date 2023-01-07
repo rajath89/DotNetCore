@@ -1,5 +1,5 @@
 ﻿namespace MyLib;
-public class Customer
+public class CustomerCls
 {
         public string customerName;
         public string customerAddress;

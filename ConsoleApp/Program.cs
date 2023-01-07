@@ -18,22 +18,42 @@ Commands
 
 using System.Configuration;
 using MyLib;
+
+
+
 string str= "hello";
 var dt = new Dictionary<string,string>();
 Console.WriteLine("Hello, World!");
-// Customer custObj1= new Customer();
-// custObj1.customerContact="12345671";
- Customer custObj2 = new Customer();
- Customer custObj3;
+CustomerCls custObj1= new CustomerCls();
+custObj1.customerContact="12345671";
+ CustomerCls custObj2 = new CustomerCls();
+ CustomerCls custObj3;
  custObj2.Add(10.0,20);
-// Customer custObj3 = custObj1;
-// custObj1 = null;
-// custObj3.customerAddress="Address";
+custObj3 = custObj1;
+custObj1 = null;
+custObj3.customerAddress="Address";
 
-ConfigTest();
+//ConfigTest();
+//testMethod();
+MethodOverridingTest();
 
+void MethodOverridingTest()
+{
+    PrivilegedCustomer privilegedCustomer = new PrivilegedCustomer("Albert","9999999999","Albert@gmail.com","Churchgate road, Mumbai","Silver");
+    Console.WriteLine("Privileged customer details are : " 
+                + privilegedCustomer.GetCustomerDetails());
 
-testMethod();
+    RegularCustomer regularCustomer = new RegularCustomer("Frank", "8888888888", "Franken@gmail.com", "Central Park, Manhattan", 0.1);
+    Console.WriteLine("Regular customer discount percentage is : " 
+                + regularCustomer.GetDiscount());
+
+        Parent parentOne = new Parent();
+        Child child = new Child();
+        Parent parentTwo = new Child();
+        parentOne.Display();
+        child.Display();
+        parentTwo.Display(); //In this case, the child class method is called even though the reference is of parent class.Here, we have used the override keyword, therefore the child class's Display() method is invoked whenever there is an object of child class
+}
 
 custObj3.customerAddress = "outside";
 
@@ -98,7 +118,7 @@ double mobilePrice = 10000.00;
           float discount = 5.00f;             
           double totalPrice = mobilePrice - (mobilePrice * discount / 100); 
           Console.WriteLine("Quantity = {0}  discount = {1} Total Price = {2}", quantity, discount, totalPrice);
-
+    
         //     int sum = 0;
         //     for(int i=1;i<=10;i++)
         //     {
@@ -117,12 +137,13 @@ double mobilePrice = 10000.00;
 
 
 
-            Customer custObj1= new Customer();
+            CustomerCls custObj1= new CustomerCls();
 custObj1.customerContact="12345671";
 //Customer custObj2 = new Customer();
 custObj3 = custObj1;
 //custObj1 = null;
 custObj3.customerAddress="Address";
+
 }
 
 
