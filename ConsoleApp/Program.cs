@@ -16,6 +16,7 @@ Commands
 */
 
 
+using System.Configuration;
 using MyLib;
 string str= "hello";
 var dt = new Dictionary<string,string>();
@@ -24,9 +25,13 @@ Console.WriteLine("Hello, World!");
 // custObj1.customerContact="12345671";
  Customer custObj2 = new Customer();
  Customer custObj3;
+ custObj2.Add(10.0,20);
 // Customer custObj3 = custObj1;
 // custObj1 = null;
 // custObj3.customerAddress="Address";
+
+ConfigTest();
+
 
 testMethod();
 
@@ -39,6 +44,53 @@ NumberOfSeatsAndDoors x = new NumberOfSeatsAndDoors(5, 4);
 testCar2.manufacturer="skoda";
 
 Console.WriteLine("end");
+
+void ConfigTest(){
+          //string sectionName = "consoleSection";
+  //ConsoleSection currentSection = null;
+  
+  // Get the roaming configuration 
+  // that applies to the current user.
+  Configuration roamingConfig =
+    ConfigurationManager.OpenExeConfiguration(
+     ConfigurationUserLevel.None);
+     //roamingConfig
+
+  // Map the roaming configuration file. This
+  // enables the application to access 
+  // the configuration file using the
+  // System.Configuration.Configuration class
+  ExeConfigurationFileMap configFileMap =
+    new ExeConfigurationFileMap();
+  configFileMap.ExeConfigFilename = @"/home/xfce/Desktop/DotNetCore/ConsoleApp/Example.config";
+
+
+    // Get the mapped configuration file.
+  Configuration config =
+    ConfigurationManager.OpenMappedExeConfiguration(
+      configFileMap, ConfigurationUserLevel.None);
+
+
+      var productSettings = config.GetSection("ProductSettings") as ConfigurationExample.ProductSettings;
+    if (productSettings == null)
+    {
+        Console.WriteLine("Product Settings are not defined");
+    }
+    else
+    {
+        var productNumber = productSettings.DellFeatures.ProductNumber;
+        var productName = productSettings.DellFeatures.ProductName;
+        var color = productSettings.DellFeatures.Color;
+        var warranty = productSettings.DellFeatures.Warranty;
+
+        Console.WriteLine("Product Number = " + productNumber);
+        Console.WriteLine("Product Name = " + productName);
+        Console.WriteLine("Product Color = " + color);
+        Console.WriteLine("Product Warranty = " + warranty);
+    }
+}
+
+
 void testMethod(){
 
 double mobilePrice = 10000.00;
