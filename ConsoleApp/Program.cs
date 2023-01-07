@@ -19,6 +19,7 @@ Commands
 using System.Configuration;
 using MyLib;
 using MyLib.Employee;
+using TC = MyLib.TypeCastExample;
 
 
 
@@ -48,6 +49,19 @@ Console.WriteLine("end");
 //testMethod();
 MethodOverridingTest();
 DynamicMethodDispatchTest();
+TypeCastExample();
+
+void TypeCastExample()
+{
+         //Creating parent class reference and child class object
+     TC.Customer customerOne = new TC.RegularCustomer(1001, "Allen", 10);
+     //Typecasting of references
+     //Console.WriteLine(customerOne.DiscountPercentage);
+     //To typecast the base class reference to a derived class reference.
+      TC.RegularCustomer regCustomerOne = (TC.RegularCustomer)customerOne;
+       Console.WriteLine("For " + regCustomerOne.CustormerName + " discount is " +
+       regCustomerOne.DiscountPercentage + " percent.");
+}
 
 void DynamicMethodDispatchTest()
 {
