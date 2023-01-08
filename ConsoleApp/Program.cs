@@ -20,10 +20,9 @@ using System.Configuration;
 using MyLib;
 using MyLib.Employee;
 using TC = MyLib.TypeCastExample;
+using MyLib.basicCS.Abstract;
 
-
-
-string str= "hello";
+string str = "hello";
 var dt = new Dictionary<string,string>();
 Console.WriteLine("Hello, World!");
 CustomerCls custObj1= new CustomerCls();
@@ -46,10 +45,26 @@ testCar2.manufacturer="skoda";
 Console.WriteLine("end");
 
 //ConfigTest();
-//testMethod();
+testMethod();
 MethodOverridingTest();
 DynamicMethodDispatchTest();
 TypeCastExample();
+AbstractExample();
+
+void AbstractExample()
+{
+  Seller sellerOne = new DomesticSeller("S1001", "David", new[] { "New York", "Boston" }, true);
+  Console.WriteLine("============================================");
+  Console.WriteLine("--------------Delivery Charges---------------");
+  Console.WriteLine("============================================");
+  Console.WriteLine();
+  Console.WriteLine("New York : "
+      + sellerOne.CalculateShippingCharges("New York"));
+  Console.WriteLine("Boston : "
+      + sellerOne.CalculateShippingCharges("Boston"));
+  Console.WriteLine("Chicago : "
+      + sellerOne.CalculateShippingCharges("Chicago"));
+}
 
 void TypeCastExample()
 {
@@ -157,7 +172,6 @@ void ConfigTest(){
         Console.WriteLine("Product Warranty = " + warranty);
     }
 }
-
 
 void testMethod(){
 
