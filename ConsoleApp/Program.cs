@@ -12,12 +12,15 @@ Commands
 - dotnet add app/app.csproj reference lib/lib.csproj
 - dotnet add reference lib1/lib1.csproj lib2/lib2.csproj
 - dotnet add package BenchmarkDotNet --version 0.13.2
+- dotnet add package Newtonsoft.Json
 - dotnet restore
 */
 
 
 using System.Configuration;
 using MyLib;
+using Newtonsoft.Json;
+
 string str= "hello";
 var dt = new Dictionary<string,string>();
 Console.WriteLine("Hello, World!");
@@ -32,7 +35,7 @@ Console.WriteLine("Hello, World!");
 testMethod();
 ConfigTest();
 
-custObj3.customerAddress = "outside";
+//custObj3.customerAddress = "outside";
 
 NumberOfSeatsAndDoors x = new NumberOfSeatsAndDoors(5, 4);
         Car testCar1 = new Car("Audi", 20000, x);
@@ -68,11 +71,16 @@ double mobilePrice = 10000.00;
 
 
             Customer custObj1= new Customer();
-custObj1.customerContact="12345671";
+//custObj1.customerContact="12345671";
 //Customer custObj2 = new Customer();
 custObj3 = custObj1;
 //custObj1 = null;
-custObj3.customerAddress="Address";
+//custObj3.customerAddress="Address";
+
+custObj3.OAInd = true;
+
+string json = JsonConvert.SerializeObject(custObj3, Formatting.Indented);
+Console.WriteLine(json);
 }
 
 
