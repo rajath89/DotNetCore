@@ -78,9 +78,24 @@ custObj3 = custObj1;
 //custObj3.customerAddress="Address";
 
 custObj3.OAInd = true;
-
-string json = JsonConvert.SerializeObject(custObj3, Formatting.Indented);
+var dynamicResolver = new DynamicContractResolver();
+dynamicResolver.IgnoreIsSpecifiedMembers = true;
+string json = JsonConvert.SerializeObject(custObj3, Formatting.Indented,new JsonSerializerSettings { ContractResolver = dynamicResolver });
 Console.WriteLine(json);
+
+// if IgnoreIsSpecifiedMembers == true:
+//   {
+//   "OAInd": true,
+//   "OAIndSpecified": false
+//   }
+
+// else
+// {
+//   {
+//   "OAIndSpecified": false
+// }
+}
+
 }
 
 
