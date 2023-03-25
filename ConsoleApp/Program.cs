@@ -21,6 +21,10 @@ using MyLib;
 using MyLib.Employee;
 using TC = MyLib.TypeCastExample;
 using MyLib.basicCS.Abstract;
+using System.Reflection;
+using System.Security.Principal;
+using System.Xml;
+using Newtonsoft.Json;
 
 string str = "hello";
 var dt = new Dictionary<string,string>();
@@ -45,11 +49,36 @@ testCar2.manufacturer="skoda";
 Console.WriteLine("end");
 
 //ConfigTest();
-testMethod();
-MethodOverridingTest();
-DynamicMethodDispatchTest();
-TypeCastExample();
-AbstractExample();
+//testMethod();
+//MethodOverridingTest();
+//DynamicMethodDispatchTest();
+//TypeCastExample();
+//AbstractExample();
+ReflectionTest();
+
+void ReflectionTest()
+{
+    const string objectToInstantiate = "MyLib.Esign, MyLib";
+
+    var objectType = Type.GetType(objectToInstantiate);
+
+    var instantiatedObject = Activator.CreateInstance(objectType);
+
+    Type typObjectContext = instantiatedObject.GetType();
+    //Type[] NoParams = { };
+    MethodInfo meth = typObjectContext.GetMethod("InstantiateObject");
+    object ret = meth.Invoke(instantiatedObject, null);
+    Esign2 esign = ret as Esign2;
+
+    if (ret !=null)
+    {
+        string json = JsonConvert.SerializeObject(ret);
+
+        Esign2 esign2 = JsonConvert.DeserializeObject<Esign2>(json);
+    }
+
+    Console.WriteLine(ret);
+}
 
 void AbstractExample()
 {
