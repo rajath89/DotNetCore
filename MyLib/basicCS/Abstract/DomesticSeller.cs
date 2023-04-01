@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyLib.basicCS.Interface;
 
 namespace MyLib.basicCS.Abstract
 {
-    public class DomesticSeller:Seller
+    public class DomesticSeller:Seller,ITax
     {
         public bool ExpressDelivery { get; set; }
 
@@ -17,7 +18,14 @@ namespace MyLib.basicCS.Abstract
             this.ExpressDelivery = expressDelivery;
         }
 
-         //overidden method 
+        public DomesticSeller(string sellerName,
+                              string[] sellerLocations, bool expressDelivery)
+                              : base(sellerName, sellerLocations)
+        {
+            this.ExpressDelivery = expressDelivery;
+        }
+
+        //overidden method 
         public override double CalculateShippingCharges(string destination)
         {
             double shippingCharges = 0;
@@ -42,6 +50,11 @@ namespace MyLib.basicCS.Abstract
             }
             return shippingCharges;
         }
-       
+
+        public double PayTax()
+        {
+            return 25;
+        }
+
     }
 }

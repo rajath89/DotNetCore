@@ -25,6 +25,7 @@ using System.Reflection;
 using System.Security.Principal;
 using System.Xml;
 using Newtonsoft.Json;
+using MyLib.basicCS.Interface;
 
 string str = "hello";
 var dt = new Dictionary<string,string>();
@@ -54,7 +55,28 @@ Console.WriteLine("end");
 //DynamicMethodDispatchTest();
 //TypeCastExample();
 //AbstractExample();
-ReflectionTest();
+//ReflectionTest();
+InterfaceExample();
+
+void InterfaceExample()
+{
+    string[] domesticLocations = new string[] { "New York", "Raleigh" };
+    DomesticSeller domesticSeller = new DomesticSeller("David", domesticLocations, true);
+    string[] internationalLocations = new string[] { "Dallas", "Kansas", "Chicago" };
+    InternationalSeller internationalSeller = new InternationalSeller("Jonathan", internationalLocations, 2500);
+
+    Retailer retailerOne = new Retailer("R1001", "Fred", "Chicago");
+
+
+    Console.WriteLine("Tax for DomesticSeller : " + domesticSeller.PayTax());
+    Console.WriteLine("Tax for InternationalSeller : " + internationalSeller.PayTax());
+    Console.WriteLine("Tax for first Retailer : " + retailerOne.PayTax());
+
+    //use the interface for creating a reference variable and assigning an object a class that implements the interface methods. 
+    ITax domesticSellerRefVar = new DomesticSeller("David", domesticLocations, true);
+    var tax = domesticSellerRefVar.PayTax(); //But when an interface is used for a reference variable, you can access only the methods and properties declared in the interface.
+
+}
 
 void ReflectionTest()
 {
