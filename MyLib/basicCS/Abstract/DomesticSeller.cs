@@ -7,7 +7,7 @@ using MyLib.basicCS.Interface;
 
 namespace MyLib.basicCS.Abstract
 {
-    public class DomesticSeller:Seller,ITax
+    public class DomesticSeller:Seller,ITax,IStateTax
     {
         public bool ExpressDelivery { get; set; }
 
@@ -51,10 +51,15 @@ namespace MyLib.basicCS.Abstract
             return shippingCharges;
         }
 
-        public double PayTax()
+        double ITax.PayTax()
         {
-            return 25;
+            return 5;
         }
+        double IStateTax.PayTax()
+        {
+            return 0.25;
+        }
+
 
     }
 }

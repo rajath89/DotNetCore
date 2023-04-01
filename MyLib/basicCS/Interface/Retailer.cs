@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyLib.basicCS.Interface
 {
-    public class Retailer : ITax
+    public class Retailer : ITax, IStateTax
     {
         public string RetailerId { get; set; }
         public string RetailerName { get; set; }
@@ -18,10 +18,15 @@ namespace MyLib.basicCS.Interface
             RetaileLocation = location;
         }
 
-        public double PayTax()
+        double ITax.PayTax()
         {
-            return 5;
+            return 25;
         }
+        double IStateTax.PayTax()
+        {
+            return 0.45;
+        }
+
 
     }
 }

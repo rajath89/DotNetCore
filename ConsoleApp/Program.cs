@@ -61,11 +61,11 @@ InterfaceExample();
 void InterfaceExample()
 {
     string[] domesticLocations = new string[] { "New York", "Raleigh" };
-    DomesticSeller domesticSeller = new DomesticSeller("David", domesticLocations, true);
+    ITax domesticSeller = new DomesticSeller("David", domesticLocations, true);
     string[] internationalLocations = new string[] { "Dallas", "Kansas", "Chicago" };
     InternationalSeller internationalSeller = new InternationalSeller("Jonathan", internationalLocations, 2500);
 
-    Retailer retailerOne = new Retailer("R1001", "Fred", "Chicago");
+    ITax retailerOne = new Retailer("R1001", "Fred", "Chicago");
 
 
     Console.WriteLine("Tax for DomesticSeller : " + domesticSeller.PayTax());
@@ -74,7 +74,11 @@ void InterfaceExample()
 
     //use the interface for creating a reference variable and assigning an object a class that implements the interface methods. 
     ITax domesticSellerRefVar = new DomesticSeller("David", domesticLocations, true);
-    var tax = domesticSellerRefVar.PayTax(); //But when an interface is used for a reference variable, you can access only the methods and properties declared in the interface.
+    var tax = domesticSellerRefVar.PayTax(); //will invoke Paytax of ITax
+                                             //But when an interface is used for a reference variable, you can access only the methods and properties declared in the interface.
+
+    IStateTax domesticSellerRefVarStateTax = new DomesticSeller("David", domesticLocations, true);
+    var taxStateTax = domesticSellerRefVarStateTax.PayTax(); // will invoke Paytax of IStateTax
 
 }
 

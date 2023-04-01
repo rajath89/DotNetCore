@@ -11,4 +11,9 @@ namespace MyLib.basicCS.Interface
         double PayTax();
     }
 
+    public interface IStateTax
+    {
+        double PayTax();
+    }
+
 }
