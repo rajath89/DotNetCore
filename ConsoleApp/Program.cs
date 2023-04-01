@@ -26,6 +26,8 @@ using System.Security.Principal;
 using System.Xml;
 using Newtonsoft.Json;
 using MyLib.basicCS.Interface;
+using MyLib.basicCS.Inheritance;
+using Inheritance = MyLib.basicCS.Inheritance;
 
 string str = "hello";
 var dt = new Dictionary<string,string>();
@@ -56,7 +58,46 @@ Console.WriteLine("end");
 //TypeCastExample();
 //AbstractExample();
 //ReflectionTest();
-InterfaceExample();
+//InterfaceExample();
+
+//Inheritance
+InheritanceEg();
+
+void InheritanceEg()
+{
+    //--Aggregation example---
+    Product productOne = new Product("P131", "Marble chess board", 1, 2000.00, 8);
+    Product productTwo = new Product("P132", "Basket Ball", 2, 1000.00, 10);
+    Product productThree = new Product("P133", "Carrom Board", 3, 800.00, 2);
+
+    Product[] cartProducts = new Product[] { productOne, productTwo, productThree };
+    Cart cartObj = new Cart(cartProducts);
+    double[] priceList = cartObj.FetchPriceList();
+    Console.WriteLine("------------------");
+    Console.WriteLine("Product Price List");
+    Console.WriteLine("------------------");
+    for (int i = 0; i < priceList.Length; i++)
+    {
+        Console.WriteLine(priceList[i]);
+    }
+    Console.WriteLine("------------------");
+
+
+    //--Association example---
+    Purchasev2 purchase = new Purchasev2();
+    double totalPrice = purchase.CalculateBillAmount(cartObj);
+    Console.WriteLine("Total Bill = {0}", totalPrice);
+    Console.WriteLine("------------------");
+
+
+    //--Inheritance eg--
+    Inheritance.EliteCustomer eliteCustomer = new Inheritance.EliteCustomer();
+    Console.WriteLine(eliteCustomer.CustomerName);
+    Inheritance.RegularCustomer regularCustomer = new Inheritance.RegularCustomer();
+    Console.WriteLine(regularCustomer.CustomerId);
+    eliteCustomer.GetInfo();
+
+}
 
 void InterfaceExample()
 {
@@ -162,7 +203,7 @@ void MethodOverridingTest()
     Console.WriteLine("Privileged customer details are : " 
                 + privilegedCustomer.GetCustomerDetails());
 
-    RegularCustomer regularCustomer = new RegularCustomer("Frank", "8888888888", "Franken@gmail.com", "Central Park, Manhattan", 0.1);
+    MyLib.RegularCustomer regularCustomer = new MyLib.RegularCustomer("Frank", "8888888888", "Franken@gmail.com", "Central Park, Manhattan", 0.1);
     Console.WriteLine("Regular customer discount percentage is : " 
                 + regularCustomer.GetDiscount());
 
