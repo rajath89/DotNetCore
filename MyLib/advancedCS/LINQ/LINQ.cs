@@ -16,11 +16,13 @@ namespace MyLib.advancedCS.LINQ
 
         public List<Employee> EmployeeList { get; set; }
 
-        public LINQ()
-        {
-            this.CreateCategoryAndProduct();
-            this.CreateUnitAndEmployee();
-        }
+        public List<Accounts> AccountsList { get; set; }
+
+        //public LINQ()
+        //{
+        //    this.CreateCategoryAndProduct();
+        //    this.CreateUnitAndEmployee();
+        //}
         private void CreateCategoryAndProduct()
         {
             CategoryList = new List<Category>()
@@ -61,9 +63,22 @@ namespace MyLib.advancedCS.LINQ
             };
         }
 
+
+        private void CreateAccounts()
+        {
+            AccountsList = new List<Accounts>
+            {
+            new Accounts { AccountNumber = "A001", AccountType = "Savings", BankId = "B001", CustomerName = "John", Balance = 1200, RewardPoints = 50 },
+            new Accounts { AccountNumber = "A002", AccountType = "Salary", BankId = "B002", CustomerName = "Vivekananda", Balance = 500, RewardPoints = 75 },
+            new Accounts { AccountNumber = "A003", AccountType = "Savings", BankId = "B003", CustomerName = "Mary", Balance = 3000, RewardPoints = 100 },
+            new Accounts { AccountNumber = "A004", AccountType = "Salary", BankId = "B004", CustomerName = "Vivekananda", Balance = 2000, RewardPoints = 90 }
+        };
+        }
+
         public void TestLINQQuerySyntax()
         {
-            
+            if (ProductList == null && CategoryList == null)
+                this.CreateCategoryAndProduct();
 
             var productList = ProductList;
             var categoryList = CategoryList;
@@ -257,6 +272,9 @@ namespace MyLib.advancedCS.LINQ
                 Display the UnitId, JobLevel and number of employees in that unit and job level. (Hint: Group by unit id and job level)
                 */
             #endregion
+
+            if (EmployeeList == null && UnitList == null)
+                this.CreateUnitAndEmployee();
 
             bool IsQuerySyntax = isQuerySyntax;
 
@@ -580,6 +598,49 @@ namespace MyLib.advancedCS.LINQ
                 }
 
             }
+        }
+
+
+        public void LINQExcercise2(bool isQuerySyntax)
+        {
+            if (AccountsList == null)
+                this.CreateAccounts();
+
+            Operations operations = new Operations(isQuerySyntax);
+
+            var accountList = AccountsList;
+
+            // Test FetchCustomer method
+            List<string> customersWithLowBalance = operations.FetchCustomer(accountList);
+            Console.WriteLine("Customers with balance less than 1000:");
+            foreach (string customer in customersWithLowBalance)
+            {
+                Console.WriteLine(customer);
+            }
+
+            // Test FetchCustomerInOrder method
+            List<string> customerNamesInOrder = operations.FetchCustomerInOrder(accountList);
+            Console.WriteLine("\nCustomer names in descending order of reward points:");
+            foreach (string customer in customerNamesInOrder)
+            {
+                Console.WriteLine(customer);
+            }
+
+            // Test FetchAccountNumber method
+            string vivekanandaAccountNumber = operations.FetchAccountNumber(accountList, "Vivekananda");
+            Console.WriteLine($"\nAccount number of customer 'Vivekananda': {vivekanandaAccountNumber}");
+
+            // Test FetchSumOfBalance method
+            Dictionary<string, int> sumOfBalances = operations.FetchSumOfBalance(accountList);
+            Console.WriteLine("\nTotal balance for each customer:");
+            foreach (var kvp in sumOfBalances)
+            {
+                Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+            }
+
+            // Test FetchNoOfAccount method
+            int noOfSalaryAccounts = operations.FetchNoOfAccount(accountList, "Salary");
+            Console.WriteLine($"\nNumber of accounts with type 'Salary': {noOfSalaryAccounts}");
         }
 
     }
