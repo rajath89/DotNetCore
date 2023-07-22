@@ -72,7 +72,7 @@ namespace MyLib.advancedCS.LINQ
             new Accounts { AccountNumber = "A002", AccountType = "Salary", BankId = "B002", CustomerName = "Vivekananda", Balance = 500, RewardPoints = 75 },
             new Accounts { AccountNumber = "A003", AccountType = "Savings", BankId = "B003", CustomerName = "Mary", Balance = 3000, RewardPoints = 100 },
             new Accounts { AccountNumber = "A004", AccountType = "Salary", BankId = "B004", CustomerName = "Vivekananda", Balance = 2000, RewardPoints = 90 }
-        };
+            };
         }
 
         public void TestLINQQuerySyntax()
@@ -245,6 +245,134 @@ namespace MyLib.advancedCS.LINQ
             }
             Console.WriteLine();
             #endregion
+
+        }
+
+        public void TestLINQMethodSyntax()
+        {
+
+            if (ProductList == null && CategoryList == null)
+                this.CreateCategoryAndProduct();
+
+            var productList = ProductList;
+            var categoryList = CategoryList;
+
+
+            #region Query One
+            // 1. Display the details of those products which are priced above Rs.1000.
+            var productPriceList = productList.Where(p => p.Price > 1000);
+            Console.WriteLine("----------------------------------------------------------------------");
+            Console.WriteLine("Product details priced above 1000");
+            Console.WriteLine("----------------------------------------------------------------------");
+            Console.WriteLine("{0, -12}{1, -18}{2, -10}{3, -20}{4}", "ProductID", "ProductName",
+                    "Price", "QuantityAvailable", "CategoryID");
+            Console.WriteLine("----------------------------------------------------------------------");
+            foreach (var item in productPriceList)
+            {
+                Console.WriteLine("{0, -12}{1, -18}{2, -10}{3, -20}{4}",
+                    item.ProductId, item.ProductName, item.Price,
+                    item.QuantityAvailable, item.CategoryId);
+            }
+            #endregion
+
+            #region Query Two
+            // 2. Display only the price of those products which are priced above Rs.1000
+            var priceList = productList.Where(p => p.Price > 1000).Select(x => x.Price);
+            Console.WriteLine("\n----------------------");
+            Console.WriteLine("Price list above 1000");
+            Console.WriteLine("----------------------");
+            Console.WriteLine("Price");
+            Console.WriteLine("-------");
+            foreach (var item in priceList)
+            {
+                Console.WriteLine(item);
+            }
+            #endregion
+
+            #region Query Three
+            // 3. Display only the product names and the prices of those products 
+            // which are priced above Rs.1000.
+            var productPriceListTwo = productList.Where(p => p.Price > 1000)
+                                                   .Select(x => new { x.ProductName, x.Price });
+            Console.WriteLine("\n---------------------------------------");
+            Console.WriteLine("Product names and Price list above 1000");
+            Console.WriteLine("---------------------------------------");
+            Console.WriteLine("{0, -18}{1}", "ProductName", "Price");
+            Console.WriteLine("-------------------------");
+            foreach (var item in productPriceListTwo)
+            {
+                Console.WriteLine("{0, -18}{1}", item.ProductName, item.Price);
+            }
+            #endregion
+
+            #region Query Four
+            // 4. Display all the product names and their price values in the increasing order of price
+            var sortedPriceList = productList.Select(x => new { x.ProductName, x.Price })
+                                                    .OrderBy(y => y.Price);
+            Console.WriteLine("\n---------------------------------------");
+            Console.WriteLine("Product names and Price in sorted order");
+            Console.WriteLine("---------------------------------------");
+            Console.WriteLine("{0, -18}{1}", "ProductName", "Price");
+            Console.WriteLine("-------------------------");
+            foreach (var item in sortedPriceList)
+            {
+                Console.WriteLine("{0, -18}{1}", item.ProductName, item.Price);
+            }
+            #endregion
+
+            #region Query Five
+            // 5. Display the category id and number of products available in each category
+            var groupList = productList.GroupBy(p => p.CategoryId)
+                            .Select(g => new { g.Key, Total = g.Count() });
+            Console.WriteLine("\n--------------------------------");
+            Console.WriteLine("Number of products in a category");
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("{0, -13}{1}", "CategoryID", "NumberOfProducts");
+            Console.WriteLine("-----------------------------");
+            foreach (var item in groupList)
+            {
+                Console.WriteLine("{0, -13}{1}", item.Key, item.Total);
+            }
+
+            #endregion
+
+            #region Query Six
+            // 6. Display the product name, category name and price of all the products
+            var joinedList = productList.Join(categoryList,
+                              p => p.CategoryId, c => c.CategoryId,
+                             (x, y) => new { x, y })
+                             .Select(r => new { r.x.ProductName, r.y.CategoryName, r.x.Price });
+            Console.WriteLine("\n----------------------------");
+            Console.WriteLine("Product and Category details");
+            Console.WriteLine("------------------------------------------");
+            Console.WriteLine("{0, -20}{1, -15}{2}", "ProductID", "CategoryID", "Price");
+            Console.WriteLine("------------------------------------------");
+            foreach (var item in joinedList)
+            {
+                Console.WriteLine("{0, -20}{1, -15}{2}", item.ProductName, item.CategoryName, item.Price);
+            }
+            Console.WriteLine();
+            #endregion
+
+
+            #region Query seven
+            //7. Display the category Id and the total quantity of products available in each category in the ascending order of total quantity available
+            var result = productList
+            .GroupBy(p => p.CategoryId)
+            .Select(g => new { CategoryId = g.Key, TotalQuantity = g.Sum(p => p.QuantityAvailable) })
+            .OrderBy(p => p.TotalQuantity);
+
+            Console.WriteLine("Category ID | Total Quantity Available");
+            foreach (var item in result)
+            {
+                Console.WriteLine($"{item.CategoryId}\t\t{item.TotalQuantity}");
+            } 
+            #endregion
+
+
+
+
+
 
         }
 
@@ -601,7 +729,7 @@ namespace MyLib.advancedCS.LINQ
         }
 
 
-        public void LINQExcercise2(bool isQuerySyntax)
+        public void LINQExercise2(bool isQuerySyntax)
         {
             if (AccountsList == null)
                 this.CreateAccounts();

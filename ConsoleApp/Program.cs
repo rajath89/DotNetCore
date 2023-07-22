@@ -68,7 +68,9 @@ void LinqTest()
 {
     linqLib.LINQ linq = new linqLib.LINQ();
     //linq.TestLINQQuerySyntax();
-    linq.LINQExercise1(false);
+    linq.TestLINQMethodSyntax();
+    //linq.LINQExercise1(false);
+    //linq.LINQExercise2(true);
 }
 
 void InheritanceEg()
