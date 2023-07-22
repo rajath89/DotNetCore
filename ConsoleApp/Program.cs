@@ -28,7 +28,7 @@ using Newtonsoft.Json;
 using MyLib.basicCS.Interface;
 using MyLib.basicCS.Inheritance;
 using Inheritance = MyLib.basicCS.Inheritance;
-using LINQ = MyLib.advancedCS.LINQ;
+using linqLib = MyLib.advancedCS.LINQ;
 
 string str = "hello";
 var dt = new Dictionary<string,string>();
@@ -66,8 +66,9 @@ InheritanceEg();
 
 void LinqTest()
 {
-    LINQ.QuerySyntax qs = new LINQ.QuerySyntax();
-    qs.TestLINQ();
+    linqLib.LINQ linq = new linqLib.LINQ();
+    //linq.TestLINQQuerySyntax();
+    linq.LINQExercise1(false);
 }
 
 void InheritanceEg()
