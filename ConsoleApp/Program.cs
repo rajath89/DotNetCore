@@ -29,6 +29,7 @@ using MyLib.basicCS.Interface;
 using MyLib.basicCS.Inheritance;
 using Inheritance = MyLib.basicCS.Inheritance;
 using linqLib = MyLib.advancedCS.LINQ;
+using Del = MyLib.advancedCS.Delegates;
 
 string str = "hello";
 var dt = new Dictionary<string,string>();
@@ -60,9 +61,14 @@ Console.WriteLine("end");
 //AbstractExample();
 //ReflectionTest();
 //InterfaceExample();
+TestDelegate();
 LinqTest();
 InheritanceEg();
 
+void TestDelegate()
+{
+    Del.SingleCast.TestSingleDelegateEx1();
+}
 
 void LinqTest()
 {
