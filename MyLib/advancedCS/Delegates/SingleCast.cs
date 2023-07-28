@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MyLib.advancedCS.Delegates
 {
-    public delegate string AlertDelegate(string customerName, string mediaType, int discount);
-    delegate int NumberChanger(int n);
+    public delegate string AlertDelegateSC(string customerName, string mediaType, int discount);
+    delegate int NumberChangerSC(int n);
     public delegate int MyDelegate(int num1, int num2);
 
     public class SingleCast
@@ -81,23 +81,23 @@ namespace MyLib.advancedCS.Delegates
 
         public static void TestSingleDelegateEx1()
         {
-            AlertDelegate alert1 = new AlertDelegate(SingleCast.SendSMS);// OR AlertDelegate alert = SingleCast.SendSMS; 
+            AlertDelegateSC alert1 = new AlertDelegateSC(SingleCast.SendSMS);// OR AlertDelegate alert = SingleCast.SendSMS; 
             string message = alert1("Aurelius", "9807865432", 15);
             Console.WriteLine(message);
 
-            AlertDelegate alert2 = new AlertDelegate(SingleCast.SendWhatsApp);// OR AlertDelegate alert = SingleCast.SendSMS; 
+            AlertDelegateSC alert2 = new AlertDelegateSC(SingleCast.SendWhatsApp);// OR AlertDelegate alert = SingleCast.SendSMS; 
             string message2 = alert2("Aurelius", "9807865432", 15);
             Console.WriteLine(message2);
 
-            AlertDelegate alert3 = new AlertDelegate(SingleCast.SendEmail);// OR AlertDelegate alert = SingleCast.SendSMS; 
+            AlertDelegateSC alert3 = new AlertDelegateSC(SingleCast.SendEmail);// OR AlertDelegate alert = SingleCast.SendSMS; 
             string message3 = alert3("Aurelius", "9807865432", 15);
             Console.WriteLine(message3);
         }
 
         public static void TestSingleDelegateEx2()
         {
-            NumberChanger nc1 = new NumberChanger(AddNum);
-            NumberChanger nc2 = new NumberChanger(MultNum);
+            NumberChangerSC nc1 = new NumberChangerSC(AddNum);
+            NumberChangerSC nc2 = new NumberChangerSC(MultNum);
 
             //calling the methods using the delegate objects
             nc1(25);

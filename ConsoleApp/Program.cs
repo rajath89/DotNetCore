@@ -67,7 +67,8 @@ InheritanceEg();
 
 void TestDelegate()
 {
-    Del.SingleCast.TestSingleDelegateEx1();
+    //Del.SingleCast.TestSingleDelegateEx1();
+    Del.MultiCast.TestMultiCastEx2();
 }
 
 void LinqTest()
