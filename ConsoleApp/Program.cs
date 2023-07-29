@@ -68,7 +68,9 @@ InheritanceEg();
 void TestDelegate()
 {
     //Del.SingleCast.TestSingleDelegateEx1();
-    Del.MultiCast.TestMultiCastEx2();
+    //Del.MultiCast.TestMultiCastEx2();
+    //Del.DelegatesEnhancement.AnonymousMethod();
+    Del.DelegatesEnhancement.LambdaExpression();
 }
 
 void LinqTest()
