@@ -106,17 +106,12 @@ namespace MyLib.advancedCS.Delegates.Assignments
             };
         }
 
-        public string From { get; set; }
-
-        public int NoOfPassengers { get; set; }
-
-        public long TicketNumber { get; set; }
-
-        public string To { get; set; }
-
-        public double TotalFare { get; set; }
-
-        public Dictionary<string,int> OptionalServices { get; set; }
+        public string From { get; }
+        public string To { get; }
+        public int NoOfPassengers { get; }
+        public long TicketNumber { get; }
+        public double TotalFare { get; private set; }
+        public Dictionary<string, int> OptionalServices { get; set; }
 
         public void UpdateTotalFare(OptionalServiceDelegate optionalServiceDelegate)
         {

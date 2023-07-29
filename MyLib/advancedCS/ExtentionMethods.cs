@@ -53,6 +53,63 @@ namespace MyLib.advancedCS
             }
             return false;
         }
+
+        public static string CapitalizeLetter(this string input)
+        {
+            string[] words = input.Split(new char[] { ' ', '.' }, StringSplitOptions.RemoveEmptyEntries);
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (words[i].Length > 0)
+                {
+                    char firstChar = char.ToUpper(words[i][0]);
+                    string restOfWord = words[i].Substring(1).ToLower();
+                    words[i] = firstChar + restOfWord;
+                }
+            }
+
+            return string.Join(" ", words);
+        }
+
+        public static string UrlEncode(this string input)
+        {
+            return Regex.Replace(input, @"\s", "%20");
+        }
+    }
+
+    public class Formatter
+    {
+        public Formatter() { }
+
+        public string CapitalizeLetter(string input)
+        {
+            return input.CapitalizeLetter();
+        }
+
+        public string UrlEncode(string input)
+        {
+            return input.UrlEncode();
+        }
+    }
+
+    public class Interview
+    {
+        public Interview(string name, string jobProfile, string suggestion, string portfolioUrl, int age, long phoneNumber)
+        {
+            Name = new Formatter().CapitalizeLetter(name);
+            JobProfile = new Formatter().CapitalizeLetter(jobProfile);
+            Suggestion = suggestion;
+            PortfolioUrl = new Formatter().UrlEncode(portfolioUrl);
+            Age = age;
+            PhoneNumber = phoneNumber;
+        }
+
+        public int Age { get; set; }
+        public string JobProfile { get; set; }
+        public string Name { get; set; }
+        public long PhoneNumber { get; set; }
+        public string PortfolioUrl { get; set; }
+        public string Suggestion { get; set; }
     }
 
 
@@ -87,6 +144,19 @@ namespace MyLib.advancedCS
             {
                 Console.WriteLine("Invalid password format");
             }
+
+            //--example3--
+            // Test case
+            Interview interview = new Interview("ajaY malik. k", "developer", "Good interview.", "http://www.google.com/this is my sample", 30, 9876543210);
+
+            Console.WriteLine("Formatted Name: " + interview.Name);
+            Console.WriteLine("Formatted Job Profile: " + interview.JobProfile);
+            Console.WriteLine("Formatted Portfolio URL: " + interview.PortfolioUrl);
+            Console.WriteLine("Age: " + interview.Age);
+            Console.WriteLine("Phone Number: " + interview.PhoneNumber);
+            Console.WriteLine("Suggestion: " + interview.Suggestion);
+
+
         }
     }
 }

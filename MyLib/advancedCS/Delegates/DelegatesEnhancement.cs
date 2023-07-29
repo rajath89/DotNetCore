@@ -60,6 +60,11 @@ namespace MyLib.advancedCS.Delegates
             Console.WriteLine("Named Method: {0}", num);
         }
 
+        private static bool IsUpperCase(string str)
+        {
+            return str.Equals(str.ToUpper());
+        }
+
         public static void AnonymousMethod()
         {
             BirthdayDelegate discountDel = delegate (double amount)
@@ -220,6 +225,8 @@ namespace MyLib.advancedCS.Delegates
         public static void BuiltInDelegates()
         {
             #region Func delegate
+
+            //--example1--
             Func<double, double> discountDel = x => x * 0.2;
 
             double discountCustomerOne = discountDel(2500);
@@ -235,9 +242,102 @@ namespace MyLib.advancedCS.Delegates
             Product product = new Product();
             product.ProductName = "Tennis Racket";
             product.Price = 1500;
-
+            product.QuantityAvailable = 15;
             bool result = checkPrice(product);
-            Console.WriteLine("Result = " + result); 
+            Console.WriteLine("Result = " + result);
+
+            //--example2--
+            Func<int, int, int> findSum = (a, b) => a + b;
+            Console.WriteLine("Sum ->" + findSum(1, 2));
+
+            #endregion
+
+
+            #region Action Delegate
+
+            //--example1--
+            Action<Product, int> checkQuantity = (x, y) =>
+            {
+                if (x.QuantityAvailable > y)
+                {
+                    Console.WriteLine("Sufficient Quantity!");
+                }
+                else
+                {
+                    Console.WriteLine("Insufficient Quantity!!");
+                }
+            };
+
+            checkQuantity(product, 5);
+
+            //--example2--
+            Action<int> findFactorial = (n) => {
+                int res = 1;
+                for (int i = 1; i <= n; i++)
+                {
+                    res = res * i;
+                }
+                Console.WriteLine("Factorial of {0}: {1}", n, res);
+            };
+
+            findFactorial(5);
+
+
+            //--example3--
+            Action action = () => { 
+                Console.WriteLine("Action can also accept 0 paramaters and not return any value. They can be used to print results or store methods which matches its signature and doesn't return anything");  
+            };
+
+            action();
+
+            #endregion
+
+
+            #region Predicate delegate
+
+            //--example 1
+            Predicate<Product> checkPricePred = x => x.Price > 0;
+
+            //Product product = new Product("Tennis Racket", 1500, 15, 1);
+            bool resultPred = checkPricePred(product);
+            Console.WriteLine("Result = " + resultPred);
+
+            //--example 2--
+            Predicate<int> checkPalindrome = (n) => {
+                int result = 0;
+                var temp = n;
+                while (temp != 0)
+                {
+                    var remainder = temp % 10;
+                    result = result * 10 + remainder;
+                    temp = temp / 10;
+                }
+                if (result == n)
+                {
+                    return true;
+                }
+                return false;
+            };
+
+            Console.WriteLine("Palindrome " + checkPalindrome(121));
+
+            //--example 3--
+            Predicate<string> isUpper = s => s.Equals(s.ToUpper());
+            result = isUpper("hello world!!");
+            Console.WriteLine(result);
+
+
+            //--example 4 (Predicate delegate)--
+            Predicate<string> isUpperPred = IsUpperCase;
+            bool result2 = isUpper("hello world!!");
+            Console.WriteLine(result);
+
+            //--example 5 (Predicate delegate with anonymous method)
+            Predicate<string> isUpperAM = IsUpperCase;
+            isUpperAM = delegate (string s) { return s.Equals(s.ToUpper()); };
+            bool result3 = isUpperAM("hello world!!");
+            Console.WriteLine(result3);
+
             #endregion
 
         }
